@@ -1,8 +1,10 @@
 'use server'
-import { LoginPayload, RegisterPayload } from "@/lib/types"
+import { LoginPayload, LoginResponse, RegisterPayload } from "@/lib/types"
 import { RegisterSchema } from "../_schema/authSchema";
+import { cookies } from "next/headers";
 
 export const loginAction = async (payload: LoginPayload) => {
+    const cookieStore = await cookies()
 
     try {
         const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
@@ -13,7 +15,15 @@ export const loginAction = async (payload: LoginPayload) => {
             body: JSON.stringify(payload),
         });
 
-        const result = await res.json()
+        const result: LoginResponse = await res.json()
+
+        if (result.success) {
+            cookieStore.set("access_token", result.data.accessToken, {
+                httpOnly: true,
+                sameSite: "lax",
+                maxAge: 1000 * 60 * 60 * 24
+            })
+        }
         return result
 
     } catch (error) {
@@ -49,4 +59,9 @@ export const registerAction = async (payload: RegisterPayload) => {
             error: error,
         };
     }
+}
+
+export const logOut = async () => {
+    const cookieStore = await cookies()
+    cookieStore.delete("access_token")
 }

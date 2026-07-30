@@ -1,10 +1,10 @@
+export type { LoginPayload } from "@/app/(auth)/_schema/authSchema";
+export type { RegisterPayload } from "@/app/(auth)/_schema/authSchema";
+
 export interface LoginFormErrors {
     email?: string;
     password?: string;
 }
-
-export type { LoginPayload } from "@/app/(auth)/_schema/authSchema";
-export type { RegisterPayload } from "@/app/(auth)/_schema/authSchema";
 
 export type Response = {
     success: boolean;
@@ -36,4 +36,31 @@ export interface RegisterResponse extends Response {
     error?: {
         message: string;
     }
+}
+
+export interface ProfileResponse extends Response {
+    data: IUser | null;
+    error?: {
+        message: string;
+    }
+}
+
+interface ITechnicianProfile {
+    bio: string;
+    experience_year: number;
+    hourly_rate: number;
+    location: string;
+    is_available: boolean;
+}
+
+export interface IUser {
+    id: string;
+    name: string;
+    email: string;
+    role: "CUSTOMER" | "TECHNICIAN" | "ADMIN";
+    user_status: "ACTIVE" | "BAN" | "DEACTIVATED";
+    photo_url: string | null;
+    created_at: Date;
+    updated_at: Date;
+    technician_profile?: ITechnicianProfile | null;
 }

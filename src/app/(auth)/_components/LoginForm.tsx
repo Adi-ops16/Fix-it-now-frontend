@@ -13,7 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { loginAction } from "../_actions/authActions";
-import { LoginResponse } from "@/lib/types";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -29,9 +28,8 @@ export default function LoginForm() {
         mode: "onChange"
     })
 
-
     const handleLogin = async (data: LoginPayload) => {
-        const result: LoginResponse = await loginAction(data)
+        const result = await loginAction(data)
         if (result.success) {
             toast.success(result.message, { position: "top-right" })
             router.replace("/")
@@ -39,7 +37,6 @@ export default function LoginForm() {
             toast.error(result.message, { position: "top-right" })
         }
     }
-
 
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/30 flex items-center justify-center p-4">
