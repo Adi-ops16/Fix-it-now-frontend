@@ -2,28 +2,53 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
+import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import Logo from "@/shared/Logo";
+import { Spinner } from "@/components/ui/spinner";
+import { LoginPayload, LoginSchema } from "../_schema/authSchema";
+import AuthHeader from "./AuthHeader";
+import AuthFooterInfo from "./AuthFooterInfo";
+import AuthActionLink from "./AuthActionLink";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Lock, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { loginAction } from "../_actions/authActions";
+import { LoginResponse } from "@/lib/types";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+    const router = useRouter()
 
-    const isLoading = false
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting }
+    } = useForm({
+        resolver: zodResolver(LoginSchema),
+        mode: "onChange"
+    })
+
+
+    const handleLogin = async (data: LoginPayload) => {
+        const result: LoginResponse = await loginAction(data)
+        if (result.success) {
+            toast.success(result.message, { position: "top-right" })
+            router.replace("/")
+        } else {
+            toast.error(result.message, { position: "top-right" })
+        }
+    }
 
 
     return (
         <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/30 flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                {/* Header Section */}
-                <div className="mb-8 flex flex-col justify-center items-center">
-                    <Logo size="xl" />
-                    <h1 className="text-3xl font-bold text-foreground mb-2">Welcome Back</h1>
-                    <p className="text-muted-foreground">Sign in to your Fix-it Now account</p>
-                </div>
+                <AuthHeader
+                    title="Welcome Back"
+                    subtitle="Sign in to your Fix-it Now account"
+                />
 
-                {/* Login Card */}
                 <Card className="shadow-xl border-border/50">
                     <CardHeader>
                         <CardTitle className="text-xl font-bold">Login</CardTitle>
@@ -31,8 +56,7 @@ export default function LoginForm() {
                     </CardHeader>
 
                     <CardContent>
-                        <form className="space-y-4">
-                            {/* Email Field */}
+                        <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
                             <Field orientation="vertical">
                                 <FieldLabel className="flex items-center gap-2 text-sm font-medium">
                                     <Mail className="w-4 h-4 text-primary" />
@@ -40,13 +64,14 @@ export default function LoginForm() {
                                 </FieldLabel>
                                 <FieldContent>
                                     <Input
+                                        {...register("email")}
                                         type="email"
                                         placeholder="you@example.com"
                                     />
                                 </FieldContent>
+                                {errors.email && <FieldError className="text-red-500 text-xs mt-1">{errors.email.message}</FieldError>}
                             </Field>
 
-                            {/* Password Field */}
                             <Field orientation="vertical">
                                 <FieldLabel className="flex items-center gap-2 text-sm font-medium">
                                     <Lock className="w-4 h-4 text-primary" />
@@ -55,20 +80,22 @@ export default function LoginForm() {
 
                                 <FieldContent>
                                     <Input
+                                        {...register("password")}
                                         type="password"
                                         placeholder="••••••••"
                                     />
                                 </FieldContent>
+                                {errors.password && <FieldError className="text-red-500 text-xs mt-1">{errors.password.message}</FieldError>}
                             </Field>
 
-                            {/* Submit Button */}
                             <Button
                                 type="submit"
+                                disabled={isSubmitting}
                                 className="w-full h-10 mt-2 group"
                             >
-                                {isLoading ? (
+                                {isSubmitting ? (
                                     <span className="flex items-center gap-2">
-                                        <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                                        <Spinner />
                                         Signing in...
                                     </span>
                                 ) : (
@@ -80,39 +107,16 @@ export default function LoginForm() {
                             </Button>
                         </form>
 
-                        {/* Divider */}
-                        <div className="relative my-3">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-border/50"></div>
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="px-2 bg-card text-muted-foreground">New to Fix-it Now?</span>
-                            </div>
-                        </div>
-
-                        {/* Sign Up Link */}
-                        <Link href="/register" className="block w-full group">
-                            <Button type="button" variant="outline" className="w-full cursor-pointer">
-                                Create an Account
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                            </Button>
-                        </Link>
+                        {/* action link */}
+                        <AuthActionLink
+                            prompt="New to Fix-it Now?"
+                            buttonLabel="Create an Account"
+                            href="/register"
+                        />
                     </CardContent>
                 </Card>
-
-                {/* Footer Info */}
-                <div className="mt-8 text-center text-sm text-muted-foreground">
-                    <p>By signing in, you agree to our</p>
-                    <div className="flex items-center justify-center gap-4 mt-1">
-                        <span className="text-primary hover:underline cursor-pointer">
-                            Terms of Service
-                        </span>
-                        <span>•</span>
-                        <span className="text-primary hover:underline cursor-pointer">
-                            Privacy Policy
-                        </span>
-                    </div>
-                </div>
+                {/* Footer */}
+                <AuthFooterInfo description="By signing in, you agree to our" />
             </div>
         </div>
     );
