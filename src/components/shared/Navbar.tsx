@@ -49,13 +49,11 @@ const Navbar = ({ user }: NavbarProps) => {
             );
         } else if (user?.role === 'TECHNICIAN') {
             items.push(
-                { label: 'My Jobs', href: '/jobs', icon: Briefcase },
                 { label: 'Dashboard', href: '/technician-dashboard', icon: LayoutDashboard }
             );
         } else if (user?.role === 'ADMIN') {
             items.push(
-                { label: 'Dashboard', href: '/admin-dashboard', icon: LayoutDashboard },
-                { label: 'Users', href: '/admin-users', icon: Users }
+                { label: 'Dashboard', href: '/admin-dashboard', icon: LayoutDashboard }
             );
         }
 
@@ -152,7 +150,12 @@ const Navbar = ({ user }: NavbarProps) => {
                                                     </div>
 
                                                     <Link
-                                                        href="/profile"
+                                                        href={`${user.role === "CUSTOMER" ?
+                                                            "/profile" :
+                                                            user.role === "ADMIN" ?
+                                                                "/admin-dashboard/my-profile" :
+                                                                "/technician-dashboard/my-profile"
+                                                            }`}
                                                         className="px-4 py-2 text-sm text-foreground hover:bg-accent transition-colors flex items-center gap-1"
                                                     >
                                                         <Settings size={16} />

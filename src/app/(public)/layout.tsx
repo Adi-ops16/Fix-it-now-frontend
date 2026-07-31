@@ -1,5 +1,5 @@
 import { getMyProfile } from "@/service/getMyProfile"
-import Navbar from "@/shared/Navbar"
+import Navbar from "@/components/shared/Navbar"
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     const result = await getMyProfile()

@@ -1,5 +1,6 @@
 'use server'
-import { ICategory, IService, ITechnician } from "@/lib/types";
+import { IService } from "@/app/(public)/services/_types/serviceTypes";
+import { ICategory, ITechnician } from "@/lib/types";
 
 // We define raw response interfaces
 export interface ApiListResponse<T> {

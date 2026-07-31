@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Clock, Tag, DollarSign, ArrowUpRight, MapPin, CheckCircle2 } from "lucide-react";
-import { IService } from "@/lib/types";
+import { IService } from "../services/_types/serviceTypes";
 
 interface FeaturedServicesProps {
     services: IService[];

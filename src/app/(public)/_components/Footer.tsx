@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Send, Sparkles } from "lucide-react";
-import Logo from "@/shared/Logo";
+import Logo from "@/components/shared/Logo";
 import { toast } from "sonner";
 
 const Footer = () => {

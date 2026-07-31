@@ -1,6 +1,6 @@
 "use client";
 
-import Logo from "@/shared/Logo";
+import Logo from "@/components/shared/Logo";
 
 interface AuthHeaderProps {
   title: string;
