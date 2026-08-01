@@ -49,11 +49,11 @@ const Navbar = ({ user }: NavbarProps) => {
             );
         } else if (user?.role === 'TECHNICIAN') {
             items.push(
-                { label: 'Dashboard', href: '/technician-dashboard', icon: LayoutDashboard }
+                { label: 'Dashboard', href: '/technician-dashboard/my-profile', icon: LayoutDashboard }
             );
         } else if (user?.role === 'ADMIN') {
             items.push(
-                { label: 'Dashboard', href: '/admin-dashboard', icon: LayoutDashboard }
+                { label: 'Dashboard', href: '/admin-dashboard/my-profile', icon: LayoutDashboard }
             );
         }
 

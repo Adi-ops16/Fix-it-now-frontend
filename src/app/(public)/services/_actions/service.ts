@@ -11,7 +11,7 @@ export const getServices = async (params: serviceParams) => {
     if (params.searchTerms) queryParams.set("searchTerms", params.searchTerms);
 
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/services?${queryParams}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services?${queryParams}`, {
             cache: "force-cache",
             next: {
                 revalidate: 60 * 60,

@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "./_components/Hero";
 import StatsSection from "./_components/StatsSection";
 import CategoriesShowcase from "./_components/CategoriesShowcase";
@@ -7,7 +6,6 @@ import HowItWorks from "./_components/HowItWorks";
 import TopTechnicians from "./_components/TopTechnicians";
 import Testimonials from "./_components/Testimonials";
 import TechnicianCTA from "./_components/TechnicianCTA";
-import Footer from "./_components/Footer";
 import { getHomeCategories, getHomeServices, getHomeTechnicians } from "@/service/homeService";
 
 export const revalidate = 600; // revalidate page every 10 minutes
@@ -45,9 +43,6 @@ export default async function Home() {
 
             {/* 8. Partner Acquisition banner */}
             <TechnicianCTA />
-
-            {/* Footer */}
-            <Footer />
         </main>
     );
 }

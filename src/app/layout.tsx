@@ -3,6 +3,8 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/shared/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { UserProvider } from "@/contexts/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,11 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TooltipProvider>
+            <UserProvider>
+              {children}
+            </UserProvider>
+          </TooltipProvider>
         </ThemeProvider>
         <Toaster position="top-right" />
       </body>

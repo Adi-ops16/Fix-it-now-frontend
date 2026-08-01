@@ -8,7 +8,7 @@ export const loginAction = async (payload: LoginPayload) => {
     const cookieStore = await cookies()
 
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const registerAction = async (payload: RegisterPayload) => {
     const parsedData = RegisterSchema.parse(payload)
 
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/customers`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/customers`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

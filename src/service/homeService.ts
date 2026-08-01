@@ -22,8 +22,8 @@ export interface PaginatedData<T> {
 
 export const getHomeCategories = async (): Promise<ICategory[]> => {
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/categories`, {
-            next: { revalidate: 3600 } // cache for 1 hour
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/categories`, {
+            next: { revalidate: 3600 }
         });
         if (!res.ok) throw new Error("Failed to fetch categories");
         const json: ApiListResponse<ICategory[]> = await res.json();
@@ -36,7 +36,7 @@ export const getHomeCategories = async (): Promise<ICategory[]> => {
 
 export const getHomeServices = async (limit = 4): Promise<IService[]> => {
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/services?limit=${limit}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services?limit=${limit}`, {
             next: { revalidate: 600 } // cache for 10 minutes
         });
         if (!res.ok) throw new Error("Failed to fetch services");
@@ -46,11 +46,12 @@ export const getHomeServices = async (limit = 4): Promise<IService[]> => {
         console.error("Error fetching services:", error);
         return [];
     }
+
 };
 
 export const getHomeTechnicians = async (limit = 4): Promise<ITechnician[]> => {
     try {
-        const res = await fetch(`${process.env.BACKEND_API_URL}/technician?limit=${limit}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/technician?limit=${limit}`, {
             next: { revalidate: 600 } // cache for 10 minutes
         });
         if (!res.ok) throw new Error("Failed to fetch technicians");
