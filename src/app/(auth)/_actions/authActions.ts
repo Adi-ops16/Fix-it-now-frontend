@@ -1,7 +1,8 @@
 'use server'
-import { LoginPayload, LoginResponse, RegisterPayload } from "@/lib/types"
+import { LoginPayload, RegisterPayload } from "@/lib/types"
 import { RegisterSchema } from "../_schema/authSchema";
 import { cookies } from "next/headers";
+import { LoginResponse } from "../_types/authTypes";
 
 export const loginAction = async (payload: LoginPayload) => {
     const cookieStore = await cookies()

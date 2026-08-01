@@ -14,8 +14,8 @@ import AuthActionLink from "./AuthActionLink";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { registerAction } from "../_actions/authActions";
-import { RegisterResponse } from "@/lib/types";
 import { toast } from "sonner";
+import { RegisterResponse } from "../_types/authTypes";
 
 export default function RegisterForm() {
     const router = useRouter()

@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Clock3, MapPin, Wrench } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { IService } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ServiceDetailsButton from "./ServiceDetailsButton";
+import { IService } from "../_types/serviceTypes";
 
 interface Props {
     service: IService;

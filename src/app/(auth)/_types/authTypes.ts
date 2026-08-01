@@ -1,3 +1,5 @@
+import { Response } from "@/lib/types";
+
 export interface LoginFormErrors {
     email?: string;
     password?: string;

@@ -1,8 +1,8 @@
-import { IService, IServiceQueryProps, IServiceResponse } from "@/lib/types";
 import { getServices } from "./_actions/service";
 import ServiceFilters from "./_components/ServiceFilter";
 import ServicePagination from "./_components/ServicePagination";
 import ServiceCard from "./_components/ServiceCard";
+import { IService, IServiceQueryProps } from "./_types/serviceTypes";
 
 export default async function ServicesPage({ searchParams }: IServiceQueryProps) {
   const params = await searchParams;

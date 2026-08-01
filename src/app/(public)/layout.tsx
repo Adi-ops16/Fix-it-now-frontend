@@ -1,5 +1,6 @@
 import { getMyProfile } from "@/service/getMyProfile"
 import Navbar from "@/components/shared/Navbar"
+import Footer from "./_components/Footer"
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     const result = await getMyProfile()
@@ -10,6 +11,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         <div className="pt-16">
             {children}
         </div>
+        <Footer />
     </div>
 }
 
