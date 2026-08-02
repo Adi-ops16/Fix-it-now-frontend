@@ -21,7 +21,6 @@ export const createTechnician = async (payload: TechnicianFormValues) => {
             body: JSON.stringify(payload)
         })
         const result: Response = await res.json()
-        console.log(result)
         const data = result.data as ITechnicianResponseData
         const accessToken = data.accessToken
 

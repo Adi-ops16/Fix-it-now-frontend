@@ -49,3 +49,29 @@ export interface IService {
         name: string;
     };
 }
+
+export interface IServiceDetails extends Omit<IService, 'category' | 'technician'> {
+    category: {
+        name: string;
+        description: string;
+    };
+    technician: {
+        bio: string;
+        experience_year: number;
+        hourly_rate: number;
+        location: string;
+        is_available: boolean;
+        name: string;
+        email: string;
+        role: 'TECHNICIAN';
+        user_status: 'ACTIVE' | 'INACTIVE' | string;
+        photo_url: string | null;
+    };
+}
+
+export interface IServiceDetailsResponse {
+    success: boolean;
+    message: string;
+    data?: IServiceDetails;
+    error?: any
+}

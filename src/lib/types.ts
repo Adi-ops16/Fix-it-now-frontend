@@ -9,7 +9,7 @@ export type Response = {
 }
 
 export interface ProfileResponse extends Response {
-    data: IUser | null;
+    data?: IUser | null;
     error?: {
         message: string;
     }

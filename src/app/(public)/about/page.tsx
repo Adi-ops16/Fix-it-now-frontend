@@ -63,7 +63,7 @@ export default async function AboutPage() {
                                 </Button>
                             </Link>
                             <AboutPageButton
-                                user={user}
+                                user={user!}
                                 variant="outline"
                                 hasArrow={false}>
                                 Join as a Customer
@@ -151,7 +151,7 @@ export default async function AboutPage() {
                                 </div>
                             </div>
                             <AboutPageButton
-                                user={user}>
+                                user={user!}>
                                 Create an Account
                             </AboutPageButton>
                         </CardContent>

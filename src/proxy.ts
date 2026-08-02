@@ -14,6 +14,7 @@ export async function proxy(request: NextRequest) {
     // Helpers to evaluate routes
     const isPublicRoute =
         PUBLIC_ROUTES.includes(pathname) ||
+        pathname === '/services' ||
         PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix))
 
     const isAuthRoute = AUTH_ROUTES.includes(pathname)

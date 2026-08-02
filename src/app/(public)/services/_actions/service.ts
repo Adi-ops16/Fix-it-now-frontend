@@ -1,4 +1,4 @@
-import { IServiceResponse, serviceParams } from "../_types/serviceTypes";
+import { IServiceDetailsResponse, IServiceResponse, serviceParams } from "../_types/serviceTypes";
 
 export const getServices = async (params: serviceParams) => {
 
@@ -25,5 +25,27 @@ export const getServices = async (params: serviceParams) => {
 
     } catch (error) {
         console.log("couldn't fetch service data", error)
+    }
+}
+
+export const getServiceDetails = async (id: number) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services/${id}`, {
+            cache: "force-cache",
+            next: {
+                revalidate: 60 * 60 * 24,
+                tags: ["service-details"]
+            }
+        })
+        const result = (await res.json()) as IServiceDetailsResponse
+        return result
+    } catch (error: any) {
+        console.log("couldn't fetch service details", error)
+        return {
+            success: false,
+            message: error.message,
+            error,
+            data: undefined
+        }
     }
 }
