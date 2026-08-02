@@ -1,11 +1,18 @@
 'use server'
 
 import { cookies } from "next/headers"
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
+
+interface IJwtPayload {
+    name: string;
+    email: string;
+    id: string;
+    role: "CUSTOMER" | "TECHNICIAN" | "ADMIN"
+}
 
 const verifyToken = async (accessToken: string) => {
     try {
-        const decode = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as JwtPayload
+        const decode = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as IJwtPayload
         return {
             success: true,
             tokenData: decode

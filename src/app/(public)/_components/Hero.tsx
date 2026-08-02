@@ -24,10 +24,10 @@ const Hero = () => {
     };
 
     return (
-        <section className="relative overflow-hidden pt-8 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-primary/5 via-background to-background">
+        <section className="relative overflow-hidden pt-8 pb-16 md:pt-16 md:pb-24 bg-linear-to-b from-primary/5 via-background to-background">
             {/* Ambient Background Blur */}
-            <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[100px] pointer-events-none" />
+            <div className="absolute top-[-10%] left-[-10%] w-125 h-125 rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-100 h-100 rounded-full bg-secondary/10 blur-[100px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -53,7 +53,7 @@ const Hero = () => {
                                 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]"
                             >
                                 Professional Home Services,{" "}
-                                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
                                     Done Right
                                 </span>{" "}
                                 & On Time.
@@ -121,7 +121,7 @@ const Hero = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.7, delay: 0.2 }}
-                            className="relative w-full max-w-[420px] aspect-[4/5] bg-card/60 backdrop-blur-md rounded-3xl border border-border/80 shadow-2xl p-6 overflow-hidden flex flex-col justify-between"
+                            className="relative w-full max-w-105 aspect-4/5 bg-card/60 backdrop-blur-md rounded-3xl border border-border/80 shadow-2xl p-6 overflow-hidden flex flex-col justify-between"
                         >
                             {/* Glow behind container */}
                             <div className="absolute -top-12 -left-12 w-40 h-40 bg-primary/20 rounded-full blur-2xl" />
@@ -159,7 +159,7 @@ const Hero = () => {
                             </div>
 
                             {/* Visual Asset Graphic Card */}
-                            <div className="bg-gradient-to-tr from-secondary to-primary/80 text-primary-foreground p-6 rounded-2xl shadow-lg mt-6 relative z-10">
+                            <div className="bg-linear-to-tr from-secondary to-primary/80 text-primary-foreground p-6 rounded-2xl shadow-lg mt-6 relative z-10">
                                 <div className="flex justify-between items-start">
                                     <div>
                                         <p className="text-xs opacity-80 uppercase tracking-widest font-semibold">Average Rating</p>

@@ -9,10 +9,10 @@ const TechnicianCTA = () => {
     return (
         <section className="py-16 md:py-24 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative overflow-hidden bg-gradient-to-br from-secondary to-primary/90 text-primary-foreground rounded-3xl p-8 md:p-16 shadow-2xl">
+                <div className="relative overflow-hidden bg-linear-to-br from-secondary to-primary/90 text-primary-foreground rounded-3xl p-8 md:p-16 shadow-2xl">
                     {/* Background Ambient Glows */}
-                    <div className="absolute top-[-20%] right-[-20%] w-[350px] h-[350px] rounded-full bg-white/10 blur-[80px] pointer-events-none" />
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[300px] h-[300px] rounded-full bg-black/10 blur-[60px] pointer-events-none" />
+                    <div className="absolute top-[-20%] right-[-20%] w-87.5 h-87.5 rounded-full bg-white/10 blur-[80px] pointer-events-none" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-75 h-75 rounded-full bg-black/10 blur-[60px] pointer-events-none" />
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
                         {/* Content */}

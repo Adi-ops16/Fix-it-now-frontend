@@ -61,7 +61,7 @@ const StatsSection = () => {
                             </p>
 
                             {/* Description */}
-                            <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
+                            <p className="text-xs text-muted-foreground leading-relaxed max-w-50">
                                 {stat.description}
                             </p>
                         </motion.div>

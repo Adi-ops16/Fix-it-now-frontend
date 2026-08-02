@@ -55,7 +55,7 @@ const HowItWorks = () => {
                 {/* Steps Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
                     {/* Connection Line for Desktop */}
-                    <div className="hidden lg:block absolute top-[45px] left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-primary/10 via-primary/30 to-primary/10 -z-10" />
+                    <div className="hidden lg:block absolute top-11.25 left-[15%] right-[15%] h-0.5 bg-linear-to-r from-primary/10 via-primary/30 to-primary/10 -z-10" />
 
                     {steps.map((step, index) => (
                         <motion.div

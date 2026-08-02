@@ -125,6 +125,9 @@ const Navbar = ({ user }: NavbarProps) => {
                                         className="relative flex items-center gap-2 p-1">
                                         {user.photo_url ? (
                                             <Image
+
+                                                width={36}
+                                                height={36}
                                                 src={user.photo_url}
                                                 alt={user.name}
                                                 className="w-9 h-9 rounded-full object-cover"
@@ -171,7 +174,6 @@ const Navbar = ({ user }: NavbarProps) => {
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
-                                        <ThemeToggleButton />
                                     </div>
 
                                     {user.role === "CUSTOMER" &&
@@ -183,6 +185,7 @@ const Navbar = ({ user }: NavbarProps) => {
 
                                 </div>
                             )}
+                            <ThemeToggleButton />
                         </div>
 
                         {/* mobile sidebar open button */}
@@ -222,10 +225,13 @@ const Navbar = ({ user }: NavbarProps) => {
                                     ))}
 
                                     {user && user.role === "CUSTOMER" &&
-                                        <Button className={"w-full mt-1"} variant={"secondary"}>
-                                            <CircleArrowOutUpRight />
-                                            <Link href={"/be-a-technician"}>Be a Technician</Link>
-                                        </Button>}
+                                        <Link href={"/be-a-technician"}>
+                                            <Button className={"w-full mt-1"} variant={"secondary"}>
+                                                <CircleArrowOutUpRight />
+                                                Be a Technician
+                                            </Button>
+                                        </Link>
+                                    }
 
                                     <div className="">
                                         {!user ? (
