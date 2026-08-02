@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserRound, LogOut, LucideProps } from "lucide-react";
+import { UserRound, LogOut, LucideProps, WrenchIcon } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
@@ -29,6 +29,7 @@ export default function DashboardSidebar() {
     }
     if (user?.role === "TECHNICIAN") {
         navItems.push({ title: "My Profile", href: "/technician-dashboard/my-profile", icon: UserRound })
+        navItems.push({ title: "My Services", href: "/technician-dashboard/my-services", icon: WrenchIcon })
     }
 
     return (
@@ -51,7 +52,7 @@ export default function DashboardSidebar() {
                             const active = pathname === item.href;
 
                             const itemButton = (
-                                <Link href={item.href} className="flex items-center gap-2">
+                                <Link href={item.href} className="flex items-center gap-2 mb-2">
                                     <SidebarMenuButton isActive={active} className="h-10 cursor-pointer">
                                         <Icon className="h-4 w-4" />
                                         {!collapsed && <span>{item.title}</span>}

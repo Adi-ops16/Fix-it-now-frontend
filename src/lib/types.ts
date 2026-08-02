@@ -1,3 +1,5 @@
+import { ITechnicianProfile } from "@/app/(dashboards)/technician-dashboard/_types";
+
 export type { LoginPayload } from "@/app/(auth)/_schema/authSchema";
 export type { RegisterPayload } from "@/app/(auth)/_schema/authSchema";
 
@@ -13,14 +15,6 @@ export interface ProfileResponse extends Response {
     error?: {
         message: string;
     }
-}
-
-interface ITechnicianProfile {
-    bio: string;
-    experience_year: number;
-    hourly_rate: number;
-    location: string;
-    is_available: boolean;
 }
 
 export interface IUser {
