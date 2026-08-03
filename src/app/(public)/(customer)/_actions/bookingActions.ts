@@ -1,11 +1,17 @@
+'use server'
 import { getTokenDetails } from "@/service/getToken"
 import { revalidateTag } from "next/cache"
+import { IBooking } from "../_types";
 
-interface IBookingStatus {
-    status: "CONFIRMED" | "CANCELLED" | "COMPLETED" | "IN_PROGRESS"
+
+
+interface ICreateBookingPayload {
+    service_id: number;
+    work_date: string;
+    work_startTime: string;
 }
 
-export const updateBookingStatus = async (bookingId: number, status: IBookingStatus) => {
+export const updateBookingStatus = async (bookingId: string, status: string) => {
     const { token } = await getTokenDetails()
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bookings/status`, {
@@ -21,5 +27,69 @@ export const updateBookingStatus = async (bookingId: number, status: IBookingSta
         return result
     } catch (error: any) {
         console.log("Failed to update booking status", error)
+    }
+}
+
+export const createBooking = async (payload: ICreateBookingPayload) => {
+    const { token } = await getTokenDetails()
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bookings`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                Cookie: `accessToken=${token}`
+            },
+            body: JSON.stringify(payload)
+        })
+        const result = await res.json() as { success: boolean, message: string, data: IBooking }
+        revalidateTag("my-bookings", { expire: 0 })
+        return result
+    } catch (error: any) {
+        console.log("Failed to create booking", error)
+    }
+}
+
+export const getMyBookings = async () => {
+    const { token } = await getTokenDetails()
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bookings/`, {
+            cache: "force-cache",
+            headers: {
+                Cookie: `accessToken=${token}`
+            },
+            next: {
+                revalidate: 60 * 60 * 24,
+                tags: ["my-bookings"]
+            }
+        })
+        const result = await res.json() as { success: boolean; message: string, data: IBooking[] }
+        return result
+    } catch (error: any) {
+        console.log("Failed to fetch my bookings", error)
+    }
+}
+
+export const getBookingDetails = async (id: string) => {
+    const { token } = await getTokenDetails()
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bookings/${id}`, {
+            cache: "force-cache",
+            headers: {
+                Cookie: `accessToken=${token}`
+            },
+            next: {
+                revalidate: 60 * 60 * 24,
+                tags: ["my-bookings", `booking-${id}`]
+            }
+        })
+        const result = await res.json() as { success: boolean; message: string; data?: IBooking }
+        return result
+    } catch (error: any) {
+        console.log("Failed to fetch booking details", error)
+        return {
+            success: false,
+            message: error.message,
+            data: undefined
+        }
     }
 }

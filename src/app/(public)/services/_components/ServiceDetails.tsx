@@ -9,8 +9,7 @@ import {
     XCircle,
     Briefcase,
     User,
-    ArrowLeft,
-    BookCheck,
+    ArrowLeft
 } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -19,9 +18,10 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { IServiceDetails } from '../_types/serviceTypes'
+import BookingButton from '../../(customer)/_components/BookingButton'
 
 export default function ServiceDetails({ service }: { service: IServiceDetails }) {
-    const { category, category_id, description: serviceDescription, estimated_time, location, price, technician, technician_id, title, created_at, updated_at } = service
+    const { category, category_id, description: serviceDescription, estimated_time, location, price, technician, technician_id, title, created_at, updated_at, id } = service
     const { description: categoryDescription, name: categoryName } = category
     const { bio, email, experience_year, hourly_rate, is_available, location: technicianLocation, name: technicianName, photo_url, role, user_status } = technician
 
@@ -113,10 +113,7 @@ export default function ServiceDetails({ service }: { service: IServiceDetails }
                                         Get an expert technician assigned immediately.
                                     </p>
                                 </div>
-                                <Button size="lg" className="w-full sm:w-auto gap-2">
-                                    <BookCheck className="h-5 w-5" />
-                                    Book Service Now
-                                </Button>
+                                <BookingButton id={Number(id)} />
                             </div>
                         </CardContent>
                     </Card>
