@@ -4,6 +4,7 @@ import { TechnicianUpdateResponse, UpdateTechnicianPayload } from "../_types";
 import { cookies } from "next/headers";
 import { IServiceResponse, IServiceUpdateResponse, ServiceUpdateFormValues } from "@/app/(public)/services/_types/serviceTypes";
 import { revalidateTag } from "next/cache";
+import { CreateServiceType, ServiceFormValues } from "../_schema";
 
 export const updateTechnician = async (data: UpdateTechnicianPayload) => {
     const { token } = await getTokenDetails()
@@ -98,5 +99,24 @@ export const deleteService = async (id: number) => {
             success: false,
             message: error.message
         }
+    }
+}
+
+export const createService = async (payload: CreateServiceType) => {
+    const { token } = await getTokenDetails()
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                Cookie: `accessToken=${token}`
+            },
+            body: JSON.stringify(payload)
+        })
+        revalidateTag("my-services", { expire: 0 })
+        const result = await res.json() as IServiceResponse
+        return result
+    } catch (error) {
+        console.log("couldn't fetch service data", error)
     }
 }

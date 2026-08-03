@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserRound, LogOut, LucideProps, WrenchIcon } from "lucide-react";
+import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
@@ -30,6 +30,7 @@ export default function DashboardSidebar() {
     if (user?.role === "TECHNICIAN") {
         navItems.push({ title: "My Profile", href: "/technician-dashboard/my-profile", icon: UserRound })
         navItems.push({ title: "My Services", href: "/technician-dashboard/my-services", icon: WrenchIcon })
+        navItems.push({ title: "create-service", href: "/technician-dashboard/create-service", icon: PenBoxIcon })
     }
 
     return (

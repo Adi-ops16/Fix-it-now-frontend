@@ -84,21 +84,6 @@ export interface ServiceUpdateFormValues {
     location?: string;
 }
 
-//     "success": true,
-// "message": "Service updated successfully",
-// "data": {
-//     "id": 3,
-//     "title": "AC Installation",
-//     "description": "Installation of split and window air conditioners with proper testing and setup.",
-//     "price": 8,
-//     "estimated_time": 45,
-//     "location": "Noakhal",
-//     "created_at": "2026-07-07T23:23:14.113Z",
-//     "updated_at": "2026-08-03T03:55:21.133Z",
-//     "technician_id": "89627dd0-10f6-4cf2-afbd-ad0d9f58d2fa",
-//     "category_id": 6
-// }
-
 export interface IServiceUpdateResponse {
     success: boolean;
     message: string;
@@ -116,3 +101,4 @@ export interface IServiceUpdateResponse {
     };
     error?: any;
 }
+

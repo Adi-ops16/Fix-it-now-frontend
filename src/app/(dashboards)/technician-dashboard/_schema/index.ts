@@ -1,5 +1,41 @@
 import z from "zod";
 
+export const createServiceSchema = z.object({
+    title: z
+        .string()
+        .trim()
+        .min(5, "Title must be at least 5 characters"),
+
+    description: z
+        .string()
+        .trim()
+        .min(20, "Description must be at least 20 characters"),
+
+    price: z
+        .number({
+            error: "Price is required",
+        })
+        .min(1, "Price must be greater than 0"),
+
+    estimated_time: z
+        .number({
+            error: "Estimated time is required",
+        })
+        .min(1, "Estimated time must be greater than 0"),
+
+    category_id: z
+        .number({
+            error: "Please select a category",
+        })
+        .min(1, "Please select a category"),
+
+    location: z
+        .string()
+        .trim()
+        .min(3, "Location must be at least 3 characters"),
+});
+
+
 export const serviceUpdateSchema = z.object({
     title: z
         .string()
@@ -29,4 +65,5 @@ export const serviceUpdateSchema = z.object({
 });
 
 // Infer TypeScript type from Zod schema
+export type CreateServiceType = z.infer<typeof createServiceSchema>;
 export type ServiceFormValues = z.infer<typeof serviceUpdateSchema>;
