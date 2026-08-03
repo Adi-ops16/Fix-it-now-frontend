@@ -1,21 +1,42 @@
-"use client"
+"use client";
+
 import { motion } from "framer-motion";
-import { Clock3, MapPin, Wrench } from "lucide-react";
+import { Clock3, MapPin, Trash, Wrench } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ServiceDetailsButton from "./ServiceDetailsButton";
 import { IService } from "../_types/serviceTypes";
+import ServiceEditModal from "@/app/(dashboards)/technician-dashboard/_components/ServiceEditModal";
+import { Button } from "@/components/ui/button";
+import DeleteServiceModal from "@/app/(dashboards)/technician-dashboard/_components/DeleteServiceModal";
+import { deleteService } from "@/app/(dashboards)/technician-dashboard/_actions";
+import { toast } from "sonner";
 
 interface Props {
     service: IService;
+    userId?: string;
 }
 
-export default function ServiceCard({ service }: Props) {
-    const { category, technician, location, estimated_time, price, title, description } = service
-    const { name: categoryName } = category || {}
-    const { experience_year, name, location: technicianLocation } = technician || {}
+export default function ServiceCard({ service, userId }: Props) {
+    const { category, technician, location, estimated_time, price, title, description } = service;
+    const { name: categoryName } = category || {};
+    const { experience_year, name, location: technicianLocation } = technician || {};
+
+    // Handles matching user_id across variations safely
+    const isAuthor = Boolean(
+        userId && (userId === technician?.user_id || userId === (technician as { id?: string })?.id)
+    );
+
+    const handleDelete = async (id: number) => {
+        const result = await deleteService(id)
+        if (!result.success) {
+            toast.error(result.message)
+        } else {
+            toast.success("Service deleted")
+        }
+    }
 
     return (
         <motion.div
@@ -24,19 +45,21 @@ export default function ServiceCard({ service }: Props) {
             className="group h-full"
         >
             <Card className="flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-linear-to-br from-primary/20 via-background to-secondary/30 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-xl">
-
-                <div className="px-5">
+                <div className="px-5 pt-5">
                     <div className="flex items-center justify-between gap-3">
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-background/80 shadow-sm">
                             <Wrench className="size-5 text-primary" />
                         </div>
-                        <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-medium">
-                            {categoryName}
-                        </Badge>
+                        <div className="flex gap-2 items-center">
+                            <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-medium">
+                                {categoryName}
+                            </Badge>
+                            {isAuthor && <DeleteServiceModal onConfirm={() => handleDelete(Number(service.id))} />}
+                        </div>
                     </div>
                 </div>
 
-                <CardContent className="flex flex-1 flex-col px-5">
+                <CardContent className="flex flex-1 flex-col px-5 pt-4">
                     <div>
                         <h2 className="line-clamp-1 text-lg font-semibold text-foreground">
                             {title}
@@ -75,12 +98,20 @@ export default function ServiceCard({ service }: Props) {
                         <p className="text-md font-semibold uppercase tracking-wide text-muted-foreground">
                             Price: <span className="font-bold text-lg text-primary">${price}</span>
                         </p>
-                        <div className="flex items-center gap-2 rounded-full bg-background/80 px-3">
+                        <div className="flex items-center gap-2 rounded-full bg-background/80 px-3 py-1.5">
                             <Clock3 className="size-3.5" />
-                            <span>Estimated Time: {estimated_time} mins</span>
+                            <span className="text-xs">Est: {estimated_time} mins</span>
                         </div>
                     </div>
-                    <ServiceDetailsButton id={service.id} />
+
+                    {/* Action buttons row */}
+                    <div className="mt-auto flex w-full items-center gap-2 pt-2">
+                        <ServiceDetailsButton classname="flex-1 w-full" id={service.id} />
+
+                        {isAuthor && (
+                            <ServiceEditModal service={service} />
+                        )}
+                    </div>
                 </CardContent>
             </Card>
         </motion.div>

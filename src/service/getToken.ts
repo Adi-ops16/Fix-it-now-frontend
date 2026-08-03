@@ -6,8 +6,9 @@ import jwt from 'jsonwebtoken'
 interface IJwtPayload {
     name: string;
     email: string;
-    id: string;
-    role: "CUSTOMER" | "TECHNICIAN" | "ADMIN"
+    user_id: string;
+    role: "CUSTOMER" | "TECHNICIAN" | "ADMIN";
+    [key: string]: unknown;
 }
 
 const verifyToken = async (accessToken: string) => {

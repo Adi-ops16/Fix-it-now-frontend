@@ -1,4 +1,4 @@
-import { ICategory } from "@/lib/types";
+import { ICategory, Response } from "@/lib/types";
 
 export interface serviceParams {
     limit?: number;
@@ -74,4 +74,45 @@ export interface IServiceDetailsResponse {
     message: string;
     data?: IServiceDetails;
     error?: any
+}
+
+export interface ServiceUpdateFormValues {
+    title?: string;
+    description?: string;
+    estimated_time?: number;
+    price?: number;
+    location?: string;
+}
+
+//     "success": true,
+// "message": "Service updated successfully",
+// "data": {
+//     "id": 3,
+//     "title": "AC Installation",
+//     "description": "Installation of split and window air conditioners with proper testing and setup.",
+//     "price": 8,
+//     "estimated_time": 45,
+//     "location": "Noakhal",
+//     "created_at": "2026-07-07T23:23:14.113Z",
+//     "updated_at": "2026-08-03T03:55:21.133Z",
+//     "technician_id": "89627dd0-10f6-4cf2-afbd-ad0d9f58d2fa",
+//     "category_id": 6
+// }
+
+export interface IServiceUpdateResponse {
+    success: boolean;
+    message: string;
+    data?: {
+        id: number;
+        title: string;
+        description: string;
+        price: number;
+        estimated_time: number;
+        location: string | null;
+        created_at?: string;
+        updated_at?: string;
+        technician_id: string;
+        category_id: number;
+    };
+    error?: any;
 }

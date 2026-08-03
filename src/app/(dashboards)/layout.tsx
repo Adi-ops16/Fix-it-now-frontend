@@ -1,5 +1,5 @@
 'use client';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import DashboardSidebar from './_components/DashboardSidebar';
 import ThemeToggleButton from '@/components/shared/ThemeToggleButton';
 import { useUser } from '@/hooks/useUser';
@@ -17,6 +17,7 @@ export default function DashboardLayout({
                 <SidebarInset className="flex-1">
                     <header className="flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
                         <div className="flex items-center gap-3">
+                            <SidebarTrigger className={""} />
                             <div>
                                 <p className="text-sm font-semibold text-foreground">Welcome to your Dashboard, <span className='text-primary'>{user?.name?.toUpperCase()}</span></p>
                             </div>
