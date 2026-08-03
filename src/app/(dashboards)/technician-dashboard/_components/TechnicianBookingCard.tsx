@@ -80,7 +80,7 @@ export default function TechnicianBookingCard({ booking }: { booking: IBooking }
                     <div className="mt-auto flex flex-col sm:flex-row items-center gap-2 pt-2">
                         <Button
                             className="w-full sm:w-auto cursor-pointer"
-                            disabled={isProcessing || booking.booking_status === 'ACCEPTED'}
+                            disabled={isProcessing || !(booking.booking_status === 'REQUESTED')}
                             onClick={() => handleUpdate("ACCEPTED")}
                         >
                             Accept
@@ -89,7 +89,7 @@ export default function TechnicianBookingCard({ booking }: { booking: IBooking }
                         <Button
                             variant="secondary"
                             className="w-full sm:w-auto cursor-pointer"
-                            disabled={isProcessing || booking.booking_status !== 'IN_PROGRESS'}
+                            disabled={isProcessing || booking.booking_status !== 'PAID'}
                             onClick={() => handleUpdate('IN_PROGRESS')}
                         >
                             Start
@@ -98,7 +98,7 @@ export default function TechnicianBookingCard({ booking }: { booking: IBooking }
                         <Button
                             variant="ghost"
                             className="w-full sm:w-auto cursor-pointer"
-                            disabled={isProcessing}
+                            disabled={isProcessing || booking.booking_status !== "ACCEPTED"}
                             onClick={() => handleUpdate('CANCELLED')}
                         >
                             Cancel
@@ -107,7 +107,7 @@ export default function TechnicianBookingCard({ booking }: { booking: IBooking }
                         <Button
                             variant="outline"
                             className="w-full sm:w-auto cursor-pointer"
-                            disabled={isProcessing || booking.booking_status !== 'COMPLETED'}
+                            disabled={isProcessing || booking.booking_status !== 'IN_PROGRESS'}
                             onClick={() => handleUpdate('COMPLETED')}
                         >
                             Complete

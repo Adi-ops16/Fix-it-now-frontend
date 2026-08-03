@@ -11,15 +11,7 @@ import { Button } from '@/components/ui/button'
 import BookingStatusBadge from "./BookingStatusBadge";
 import { IBookingWithService } from "../_types";
 import { formatDate, formatDateTime } from "@/service/booking";
-
-
-
-function getHours(time: number) {
-    const hours = time % 60
-    const minutes = Math.floor(time / 60)
-    return { hours, minutes }
-}
-
+import PaymentButton from "./PaymentButton";
 
 export default function BookingCard({ booking }: { booking: IBookingWithService }) {
     const {
@@ -97,11 +89,7 @@ export default function BookingCard({ booking }: { booking: IBookingWithService 
                     <div className="mt-auto flex w-full items-center gap-2 pt-2">
                         <BookingDetailsButton classname="flex-1 w-full" id={id} />
                         {booking_status === 'ACCEPTED' && (
-                            <Link href={`/payment?booking_id=${id}`} className="w-36">
-                                <Button variant="secondary" className="w-full cursor-pointer">
-                                    Pay
-                                </Button>
-                            </Link>
+                            <PaymentButton id={booking.id} />
                         )}
                     </div>
                 </CardContent>
