@@ -1,8 +1,8 @@
 'use server'
+import { ICategory } from "@/app/(dashboards)/_types/categoryTypes";
 import { IService } from "@/app/(public)/services/_types/serviceTypes";
-import { ICategory, ITechnician } from "@/lib/types";
+import { ITechnician } from "@/lib/types";
 
-// We define raw response interfaces
 export interface ApiListResponse<T> {
     success: boolean;
     message: string;
@@ -18,7 +18,6 @@ export interface PaginatedData<T> {
     };
     data: T[];
 }
-
 
 export const getHomeCategories = async (): Promise<ICategory[]> => {
     try {

@@ -29,14 +29,6 @@ export interface IUser {
     technician_profile?: ITechnicianProfile | null;
 }
 
-export interface ICategory {
-    id: number;
-    name: string;
-    description: string;
-    created_at?: string;
-    updated_at?: string;
-}
-
 export interface ITechnician {
     user_id: string;
     bio: string;

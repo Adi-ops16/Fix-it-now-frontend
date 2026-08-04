@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Wrench, Wind, Car, Flower, Home, Hammer, Settings, ArrowRight } from "lucide-react";
-import { ICategory } from "@/lib/types";
+import { ICategory } from "@/app/(dashboards)/_types/categoryTypes";
 
 interface CategoriesShowcaseProps {
     categories: ICategory[];

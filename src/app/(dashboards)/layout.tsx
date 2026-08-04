@@ -9,11 +9,15 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const { user, loading } = useUser()
+    const { user, loading, refreshUser } = useUser()
     return (
         <SidebarProvider>
             <div className="flex min-h-screen w-full overflow-hidden bg-background">
-                <DashboardSidebar user={user} loading={loading} />
+                <DashboardSidebar
+                    user={user}
+                    loading={loading}
+                    refreshUser={refreshUser}
+                />
                 <SidebarInset className="flex-1">
                     <header className="flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
                         <div className="flex items-center gap-3">

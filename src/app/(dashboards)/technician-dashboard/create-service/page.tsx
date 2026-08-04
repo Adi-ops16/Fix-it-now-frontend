@@ -1,4 +1,4 @@
-import { getCategories } from "../../admin-dashboard/(categories)/_actions";
+import { getCategories } from "../../_actions/categoriesAction";
 import CreateServiceForm from "../_components/CreateServiceForm";
 
 export default async function CreateServicePage() {

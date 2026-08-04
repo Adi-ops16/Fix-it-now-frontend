@@ -1,5 +1,5 @@
-import { getAllUsers, toggleCustomerStatusAction } from "./_actions/manageUserActions";
-import ManageUsersTable from "./_compoentns/ManageUsersTable";
+import { getAllUsers, toggleCustomerStatusAction } from "../../_actions/manageUserActions";
+import ManageUsersTable from "../../_components/ManageUsersTable";
 
 
 export default async function ManageUsersPage() {

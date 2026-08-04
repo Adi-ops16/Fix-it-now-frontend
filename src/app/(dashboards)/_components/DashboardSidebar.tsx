@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, SquareChartGanttIcon } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, LayoutGrid } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import Logo from "@/components/shared/Logo";
-import { ForwardRefExoticComponent, RefAttributes, useMemo, useState } from "react";
+import { ForwardRefExoticComponent, RefAttributes, useMemo } from "react";
 import { ContextUser } from "@/contexts/UserContext";
+import { logOut } from "@/app/(auth)/_actions/authActions";
 
 interface NavItem {
     title: string;
@@ -18,10 +19,11 @@ interface NavItem {
     icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 }
 
-export default function DashboardSidebar({ user, loading }: { user: ContextUser | null, loading: boolean }) {
+export default function DashboardSidebar({ user, loading, refreshUser }: { user: ContextUser | null, loading: boolean, refreshUser: () => Promise<void> }) {
     const pathname = usePathname();
     const { state } = useSidebar();
     const collapsed = state === "collapsed";
+    const router = useRouter()
 
     const navItems: NavItem[] = useMemo<NavItem[]>(() => {
         if (!user) return []
@@ -30,7 +32,8 @@ export default function DashboardSidebar({ user, loading }: { user: ContextUser 
             return [
                 { title: "My Profile", href: "/admin-dashboard/my-profile", icon: UserRound },
                 { title: "Manage Users", href: "/admin-dashboard/manage-users", icon: Users },
-                { title: "Create Category", href: "/admin-dashboard/create-category", icon: SquareChartGanttIcon }
+                { title: "Create Category", href: "/admin-dashboard/create-category", icon: PenBoxIcon },
+                { title: "Categories", href: "/admin-dashboard/all-categories", icon: LayoutGrid }
             ]
         }
 
@@ -45,6 +48,12 @@ export default function DashboardSidebar({ user, loading }: { user: ContextUser 
 
         return []
     }, [user]);
+
+    const handleLogout = () => {
+        logOut();
+        refreshUser();
+        router.push("/");
+    }
 
     return (
         <Sidebar collapsible="icon" className="border-r border-border/60 bg-sidebar text-sidebar-foreground">
@@ -118,9 +127,14 @@ export default function DashboardSidebar({ user, loading }: { user: ContextUser 
                         }
                     </div>
                     {!collapsed &&
-                        <Button size="sm" variant="outline" className="gap-2 cursor-pointer">
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="gap-2 cursor-pointer"
+                            onClick={handleLogout}
+                        >
                             <LogOut className="h-4 w-4" />
-                            Login
+                            Logout
                         </Button>
                     }
                 </div>

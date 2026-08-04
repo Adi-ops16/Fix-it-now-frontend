@@ -1,4 +1,5 @@
-import { ICategory, Response } from "@/lib/types";
+import { ICategory } from "@/app/(dashboards)/_types/categoryTypes";
+import { Response } from "@/lib/types";
 
 export interface serviceParams {
     limit?: number;

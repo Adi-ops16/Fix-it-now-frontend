@@ -1,5 +1,4 @@
-
-export interface Category {
+export interface ICategory {
     id: number;
     name: string;
     description: string;
@@ -10,6 +9,6 @@ export interface Category {
 export interface ICategoryRes {
     success: boolean;
     message: string;
-    data?: Category[];
+    data?: ICategory[];
     error?: any
 }
