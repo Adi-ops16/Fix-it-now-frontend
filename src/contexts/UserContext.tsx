@@ -3,14 +3,15 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import { getCurrentUserAction } from "@/app/(auth)/_actions/userActions";
 
-interface UserContextValue {
-    user: {
-        id?: string;
-        email?: string;
-        name?: string;
-        role?: "TECHNICIAN" | "CUSTOMER" | "ADMIN";
-        [key: string]: unknown;
-    } | null;
+export interface ContextUser {
+    id?: string;
+    email?: string;
+    name?: string;
+    role?: "TECHNICIAN" | "CUSTOMER" | "ADMIN";
+    [key: string]: unknown;
+}
+export interface UserContextValue {
+    user: ContextUser | null;
     loading: boolean;
     refreshUser: () => Promise<void>;
 }

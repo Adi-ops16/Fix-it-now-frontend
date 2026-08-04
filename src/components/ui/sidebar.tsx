@@ -627,7 +627,7 @@ function SidebarMenuSkeleton({
         data-sidebar="menu-skeleton-text"
         style={
           {
-            "--skeleton-width": width,
+            "--skeleton-width": "70%",
           } as React.CSSProperties
         }
       />

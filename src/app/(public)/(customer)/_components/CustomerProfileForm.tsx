@@ -108,7 +108,6 @@ export function CustomerProfileForm({ user }: CustomerProfileFormProps) {
                         <div className="space-y-2">
                             <Label htmlFor="photo_url">Profile Picture URL</Label>
                             <Input
-                                defaultValue={user.photo_url || ''}
                                 id="photo_url"
                                 type="text"
                                 placeholder="https://example.com/avatar.jpg"
@@ -119,7 +118,7 @@ export function CustomerProfileForm({ user }: CustomerProfileFormProps) {
                         {/* Submit Button */}
                         <Button
                             type="submit"
-                            className="w-full"
+                            className="w-full cursor-pointer"
                             disabled={isSubmitting || !isDirty}
                         >
                             {isSubmitting ? 'Saving...' : 'Save Changes'}

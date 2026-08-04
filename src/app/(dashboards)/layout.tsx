@@ -9,15 +9,15 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const { user } = useUser()
+    const { user, loading } = useUser()
     return (
         <SidebarProvider>
             <div className="flex min-h-screen w-full overflow-hidden bg-background">
-                <DashboardSidebar />
+                <DashboardSidebar user={user} loading={loading} />
                 <SidebarInset className="flex-1">
                     <header className="flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
                         <div className="flex items-center gap-3">
-                            <SidebarTrigger className={""} />
+                            <SidebarTrigger />
                             <div>
                                 <p className="text-sm font-semibold text-foreground">Welcome to your Dashboard, <span className='text-primary'>{user?.name?.toUpperCase()}</span></p>
                             </div>

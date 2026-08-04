@@ -2,80 +2,104 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users } from "lucide-react";
+import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, SquareChartGanttIcon } from "lucide-react";
 import {
-    Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, SidebarTrigger, useSidebar
+    Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import Logo from "@/components/shared/Logo";
-import { useUser } from "@/hooks/useUser";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { ForwardRefExoticComponent, RefAttributes, useMemo, useState } from "react";
+import { ContextUser } from "@/contexts/UserContext";
 
-export default function DashboardSidebar() {
+interface NavItem {
+    title: string;
+    href: string;
+    icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+}
+
+export default function DashboardSidebar({ user, loading }: { user: ContextUser | null, loading: boolean }) {
     const pathname = usePathname();
     const { state } = useSidebar();
     const collapsed = state === "collapsed";
 
-    const { user } = useUser()
-    const navItems: {
-        title: string;
-        href: string;
-        icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
-    }[] = [];
+    const navItems: NavItem[] = useMemo<NavItem[]>(() => {
+        if (!user) return []
 
-    if (user?.role === "ADMIN") {
-        navItems.push({ title: "My Profile", href: "/admin-dashboard/my-profile", icon: UserRound })
-        navItems.push({ title: "Manage Users", href: "/admin-dashboard/manage-users", icon: Users })
-    }
-    if (user?.role === "TECHNICIAN") {
-        navItems.push({ title: "My Profile", href: "/technician-dashboard/my-profile", icon: UserRound })
-        navItems.push({ title: "My Services", href: "/technician-dashboard/my-services", icon: WrenchIcon })
-        navItems.push({ title: "create-service", href: "/technician-dashboard/create-service", icon: PenBoxIcon })
-        navItems.push({ title: "my-bookings", href: "/technician-dashboard/my-bookings", icon: LucidePaperclip })
-    }
+        if (user?.role === "ADMIN") {
+            return [
+                { title: "My Profile", href: "/admin-dashboard/my-profile", icon: UserRound },
+                { title: "Manage Users", href: "/admin-dashboard/manage-users", icon: Users },
+                { title: "Create Category", href: "/admin-dashboard/create-category", icon: SquareChartGanttIcon }
+            ]
+        }
+
+        if (user?.role === "TECHNICIAN") {
+            return [
+                { title: "My Profile", href: "/technician-dashboard/my-profile", icon: UserRound },
+                { title: "My Services", href: "/technician-dashboard/my-services", icon: WrenchIcon },
+                { title: "create-service", href: "/technician-dashboard/create-service", icon: PenBoxIcon },
+                { title: "my-bookings", href: "/technician-dashboard/my-bookings", icon: LucidePaperclip }
+            ]
+        }
+
+        return []
+    }, [user]);
 
     return (
         <Sidebar collapsible="icon" className="border-r border-border/60 bg-sidebar text-sidebar-foreground">
             <SidebarHeader className="border-b border-border/60">
                 <div className={`${!collapsed && "flex justify-between items-center"}`}>
                     <Link href="/" className="flex items-center gap-2 overflow-hidden">
-                        {!collapsed && <Logo size="md" />}
-                        {!collapsed && <span className="text-sm font-semibold tracking-wide">FIX-IT NOW</span>}
+                        <div className="flex gap-2 items-center">
+                            <Logo size="md" />
+                            {!collapsed && <span className="text-sm font-semibold tracking-wide">FIX-IT NOW</span>}
+                        </div>
                     </Link>
-                    <SidebarTrigger className="h-8 w-8 rounded-full" />
+                    {!collapsed && <SidebarTrigger className="h-8 w-8 rounded-full" />}
                 </div>
             </SidebarHeader>
 
             <SidebarContent className="px-2 py-3">
                 <SidebarGroup>
                     <SidebarMenu>
-                        {navItems.map((item) => {
-                            const Icon = item.icon;
-                            const active = pathname === item.href;
+                        {loading ?
+                            <div className="space-y-2">
+                                {Array.from({ length: 2 }).map((_, index) => (
+                                    <div key={index} className="mb-2">
+                                        <SidebarMenuSkeleton />
+                                        <SidebarMenuSkeleton />
+                                        <SidebarMenuSkeleton />
+                                    </div>
+                                ))
+                                }
+                            </div>
+                            : navItems.map((item) => {
+                                const Icon = item.icon;
+                                const active = pathname === item.href;
 
-                            const itemButton = (
-                                <Link href={item.href} className="flex items-center gap-2 mb-2">
-                                    <SidebarMenuButton isActive={active} className="h-10 cursor-pointer">
-                                        <Icon className="h-4 w-4" />
-                                        {!collapsed && <span>{item.title}</span>}
-                                    </SidebarMenuButton>
-                                </Link>
-                            );
-
-                            if (collapsed) {
-                                return (
-                                    <SidebarMenuItem key={item.title}>
-                                        <Tooltip>
-                                            <TooltipTrigger render={itemButton} />
-                                            <TooltipContent side="right">{item.title}</TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuItem>
+                                const itemButton = (
+                                    <Link href={item.href} className="flex items-center gap-2 ">
+                                        <SidebarMenuButton isActive={active} className="h-10 cursor-pointer mb-2">
+                                            <Icon className="h-4 w-4" />
+                                            {!collapsed && <span>{item.title}</span>}
+                                        </SidebarMenuButton>
+                                    </Link>
                                 );
-                            }
 
-                            return <SidebarMenuItem key={item.title}>{itemButton}</SidebarMenuItem>;
-                        })}
+                                if (collapsed) {
+                                    return (
+                                        <SidebarMenuItem key={item.title}>
+                                            <Tooltip>
+                                                <TooltipTrigger render={itemButton} />
+                                                <TooltipContent side="right">{item.title}</TooltipContent>
+                                            </Tooltip>
+                                        </SidebarMenuItem>
+                                    );
+                                }
+
+                                return <SidebarMenuItem key={item.title}>{itemButton}</SidebarMenuItem>;
+                            })}
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>

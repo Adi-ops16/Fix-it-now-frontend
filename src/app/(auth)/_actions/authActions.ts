@@ -3,6 +3,7 @@ import { LoginPayload, RegisterPayload } from "@/lib/types"
 import { RegisterSchema } from "../_schema/authSchema";
 import { cookies } from "next/headers";
 import { LoginResponse } from "../_types/authTypes";
+import { revalidateTag } from "next/cache";
 
 export const loginAction = async (payload: LoginPayload) => {
     const cookieStore = await cookies()
@@ -24,6 +25,7 @@ export const loginAction = async (payload: LoginPayload) => {
                 sameSite: "lax",
                 maxAge: 1000 * 60 * 60 * 24
             })
+            revalidateTag("my-profile", { expire: 0 })
         }
         return result
 

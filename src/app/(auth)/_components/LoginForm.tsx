@@ -15,9 +15,11 @@ import { useForm } from "react-hook-form";
 import { loginAction } from "../_actions/authActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 export default function LoginForm() {
     const router = useRouter()
+    const { refreshUser } = useUser()
 
     const {
         register,
@@ -32,6 +34,7 @@ export default function LoginForm() {
         const result = await loginAction(data)
         if (result.success) {
             toast.success(result.message, { position: "top-right" })
+            refreshUser()
             router.replace("/")
         } else {
             toast.error(result.message, { position: "top-right" })

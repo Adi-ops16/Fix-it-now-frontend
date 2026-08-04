@@ -3,6 +3,8 @@ import { getMyServices } from '../_actions'
 import ServiceCard from '@/app/(public)/services/_components/ServiceCard'
 import { getTokenDetails } from '@/service/getToken'
 
+export const dynamic = 'force-dynamic'
+
 export default async function MyServicesPage() {
     const result = await getMyServices()
     const { tokenPayload } = await getTokenDetails()

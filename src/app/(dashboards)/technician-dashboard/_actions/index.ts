@@ -4,7 +4,7 @@ import { TechnicianUpdateResponse, UpdateTechnicianPayload } from "../_types";
 import { cookies } from "next/headers";
 import { IServiceResponse, IServiceUpdateResponse, ServiceUpdateFormValues } from "@/app/(public)/services/_types/serviceTypes";
 import { revalidateTag } from "next/cache";
-import { CreateServiceType, ServiceFormValues } from "../_schema";
+import { CreateServiceType } from "../_schema";
 
 export const updateTechnician = async (data: UpdateTechnicianPayload) => {
     const { token } = await getTokenDetails()

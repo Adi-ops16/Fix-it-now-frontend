@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import ThemeToggleButton from './ThemeToggleButton';
 import { logOut } from '@/app/(auth)/_actions/authActions';
 import { toast } from 'sonner';
+import { useUser } from '@/hooks/useUser';
 
 interface NavbarProps {
     user: IUser | null;
@@ -20,6 +21,7 @@ interface NavbarProps {
 const Navbar = ({ user }: NavbarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const { refreshUser } = useUser()
 
     const [scrolled, setScrolled] = useState(false)
     const { scrollY } = useScroll()
@@ -65,6 +67,7 @@ const Navbar = ({ user }: NavbarProps) => {
     const handleLogout = () => {
         logOut()
         setIsProfileOpen(false);
+        refreshUser()
         toast.success("You have been logged out")
     };
 
