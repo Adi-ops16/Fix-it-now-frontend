@@ -19,8 +19,6 @@ export const getServices = async (params: serviceParams) => {
             }
         })
         const result: IServiceResponse = await res.json()
-        console.log(result.data.length)
-
         return result
 
     } catch (error) {

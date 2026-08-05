@@ -187,32 +187,14 @@ export default function ManageUsersTable({ users, toggleAction }: Props) {
                                                 )}
                                             </form>
                                         ) : (
-                                            user.user_status === "ACTIVE" ? (
-                                                <Button
-                                                    size="sm"
-                                                    variant="destructive"
-                                                    onClick={() =>
-                                                        console.log(
-                                                            "Ban",
-                                                            user.id
-                                                        )
-                                                    }
-                                                >
+                                            user.user_status === "ACTIVE" ?
+                                                <Button size="sm" variant="destructive">
                                                     Ban
                                                 </Button>
-                                            ) : (
-                                                <Button
-                                                    size="sm"
-                                                    onClick={() =>
-                                                        console.log(
-                                                            "Unban",
-                                                            user.id
-                                                        )
-                                                    }
-                                                >
+                                                :
+                                                <Button size="sm" >
                                                     Unban
                                                 </Button>
-                                            )
                                         )}
                                     </TableCell>
                                 </TableRow>

@@ -13,12 +13,14 @@ import ThemeToggleButton from './ThemeToggleButton';
 import { logOut } from '@/app/(auth)/_actions/authActions';
 import { toast } from 'sonner';
 import { useUser } from '@/hooks/useUser';
+import { useRouter } from 'next/navigation';
 
 interface NavbarProps {
     user: IUser | null;
 }
 
 const Navbar = ({ user }: NavbarProps) => {
+    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const { refreshUser } = useUser()
@@ -68,6 +70,7 @@ const Navbar = ({ user }: NavbarProps) => {
         logOut()
         setIsProfileOpen(false);
         refreshUser()
+        router.replace("/")
         toast.success("You have been logged out")
     };
 

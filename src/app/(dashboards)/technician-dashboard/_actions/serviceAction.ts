@@ -60,7 +60,9 @@ export const deleteService = async (id: number) => {
             }
         })
         const result = await res.json() as { success: boolean, message: string }
-        revalidateTag("my-services", { expire: 0 })
+        if (result.success) {
+            revalidateTag("my-services", { expire: 0 })
+        }
         return result
     } catch (error: any) {
         console.log("Failed to delete service", error)

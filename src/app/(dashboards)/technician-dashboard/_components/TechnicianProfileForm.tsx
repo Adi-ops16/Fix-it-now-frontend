@@ -50,7 +50,6 @@ export function TechnicianProfileForm({ user }: TechnicianProfileFormProps) {
     const isAvailable = watch('is_available')
 
     const onSubmit = async (data: UpdateTechnicianPayload) => {
-        console.log(data)
         const result = await updateTechnician(data)
         if (!result.success) {
             toast.error(result.error?.message || 'Failed to update profile')

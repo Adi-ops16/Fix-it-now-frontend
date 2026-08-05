@@ -1,16 +1,5 @@
 import Link from 'next/link'
-import {
-    Clock,
-    MapPin,
-    DollarSign,
-    Tag,
-    Calendar,
-    CheckCircle2,
-    XCircle,
-    Briefcase,
-    User,
-    ArrowLeft
-} from 'lucide-react'
+import { Clock, MapPin, DollarSign, Tag, Calendar, CheckCircle2, XCircle, Briefcase, User, ArrowLeft } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -21,7 +10,7 @@ import { IServiceDetails } from '../_types/serviceTypes'
 import BookingButton from '../../(customer)/_components/BookingButton'
 
 export default function ServiceDetails({ service }: { service: IServiceDetails }) {
-    const { category, category_id, description: serviceDescription, estimated_time, location, price, technician, technician_id, title, created_at, updated_at, id } = service
+    const { category, category_id, description: serviceDescription, estimated_time, location, price, technician, technician_id, title, id } = service
     const { description: categoryDescription, name: categoryName } = category
     const { bio, email, experience_year, hourly_rate, is_available, location: technicianLocation, name: technicianName, photo_url, role, user_status } = technician
 

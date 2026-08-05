@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import React, { useTransition } from "react"
 import { createPayment } from "../_actions/paymentActions"
 import { toast } from "sonner"
+import { DollarSign } from "lucide-react"
 
 export default function PaymentButton({ id }: { id: string }) {
     const [isPending, startTransition] = useTransition()
@@ -24,6 +25,7 @@ export default function PaymentButton({ id }: { id: string }) {
             variant="secondary"
             className="cursor-pointer flex-1"
         >
+            <DollarSign />
             {isPending ? "Processing..." : "Pay Now"}
         </Button>
     )

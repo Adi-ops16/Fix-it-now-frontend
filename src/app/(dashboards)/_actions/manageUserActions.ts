@@ -44,7 +44,6 @@ export const toggleCustomerStatus = async (userId: string, currentStatus?: strin
 }
 
 export async function toggleCustomerStatusAction(formData: FormData) {
-    'use server'
     const userId = formData.get('userId') as string
     const currentStatus = formData.get('currentStatus') as string | undefined
     if (!userId) {

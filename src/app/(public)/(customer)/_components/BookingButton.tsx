@@ -9,9 +9,11 @@ import { BookCheck } from 'lucide-react'
 import { createBooking } from '../_actions/bookingActions'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@/hooks/useUser'
 
 const BookingButton = ({ id }: { id: number }) => {
     const router = useRouter()
+    const { user } = useUser()
     const [open, setOpen] = useState(false)
     const [workDate, setWorkDate] = useState(() => new Date().toISOString().split('T')[0])
     const [workTime, setWorkTime] = useState(() => new Date().toTimeString().slice(0, 5))
@@ -20,6 +22,13 @@ const BookingButton = ({ id }: { id: number }) => {
     const handleBooking = async (service_id: number, event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault()
         setIsSubmitting(true)
+
+        if (!user) {
+            toast.error("Please login first for booking")
+            setIsSubmitting(false)
+            setOpen(false)
+            return
+        }
 
         const payload = {
             service_id,

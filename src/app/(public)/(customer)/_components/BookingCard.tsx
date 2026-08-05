@@ -1,30 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarDays, Clock3, DollarSign, Wrench } from "lucide-react";
-
+import { CalendarDays, Clock3, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import BookingDetailsButton from "./BookingDetailsButton";
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import BookingStatusBadge from "./BookingStatusBadge";
 import { IBookingWithService } from "../_types";
 import { formatDate, formatDateTime } from "@/service/booking";
 import PaymentButton from "./PaymentButton";
+import ReviewButton from "./ReviewButton";
 
 export default function BookingCard({ booking }: { booking: IBookingWithService }) {
-    const {
-        id,
-        serviceTitle,
-        categoryName,
-        work_date,
-        work_startTime,
-        work_endTime,
-        estimated_time,
-        total_amount,
-        booking_status,
-    } = booking;
+    const { id, serviceTitle, categoryName, work_date, work_startTime, work_endTime, estimated_time, total_amount, booking_status } = booking;
 
     const { timeShape: startTime } = formatDateTime(work_startTime)
     const { timeShape: endTime } = formatDateTime(work_endTime)
@@ -90,6 +78,9 @@ export default function BookingCard({ booking }: { booking: IBookingWithService 
                         <BookingDetailsButton classname="flex-1 w-full" id={id} />
                         {booking_status === 'ACCEPTED' && (
                             <PaymentButton id={booking.id} />
+                        )}
+                        {booking_status === 'COMPLETED' && (
+                            <ReviewButton booking_id={id} />
                         )}
                     </div>
                 </CardContent>
