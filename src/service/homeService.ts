@@ -26,7 +26,7 @@ export const getHomeCategories = async (): Promise<ICategory[]> => {
         });
         if (!res.ok) throw new Error("Failed to fetch categories");
         const json: ApiListResponse<ICategory[]> = await res.json();
-        return json.data || [];
+        return json.data.splice(0, 6) || [];
     } catch (error) {
         console.error("Error fetching categories:", error);
         return [];
@@ -36,26 +36,24 @@ export const getHomeCategories = async (): Promise<ICategory[]> => {
 export const getHomeServices = async (limit = 4): Promise<IService[]> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services?limit=${limit}`, {
-            next: { revalidate: 600 } // cache for 10 minutes
+            next: { revalidate: 600 }
         });
-        if (!res.ok) throw new Error("Failed to fetch services");
-        const json: ApiListResponse<PaginatedData<IService>> = await res.json();
-        return json.data?.data || [];
+        const result = await res.json() as ApiListResponse<IService[]>;
+        return result.data;
     } catch (error) {
         console.error("Error fetching services:", error);
         return [];
     }
-
 };
 
-export const getHomeTechnicians = async (limit = 4): Promise<ITechnician[]> => {
+export const getHomeTechnicians = async (limit = 5): Promise<ITechnician[]> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/technician?limit=${limit}`, {
-            next: { revalidate: 600 } // cache for 10 minutes
+            next: { revalidate: 600 }
         });
-        if (!res.ok) throw new Error("Failed to fetch technicians");
-        const json: ApiListResponse<PaginatedData<ITechnician>> = await res.json();
-        return json.data?.data || [];
+        const result = await res.json() as ApiListResponse<ITechnician[]>;
+        console.log(result.data)
+        return result.data.reverse() || [];
     } catch (error) {
         console.error("Error fetching technicians:", error);
         return [];
