@@ -10,8 +10,6 @@ export default async function CreateServicePage() {
     }
     return (
         <section className="container py-10">
-            <h1 className="mb-8 text-3xl font-bold">Create Service</h1>
-
             <CreateServiceForm categories={categoryList} />
         </section>
     );

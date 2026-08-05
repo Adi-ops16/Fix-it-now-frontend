@@ -17,9 +17,9 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { createServiceSchema } from "../_schema";
-import { createService } from "../_actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createService } from "../_actions/serviceAction";
 
 type Category = {
     id: number;

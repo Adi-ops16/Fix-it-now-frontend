@@ -46,3 +46,21 @@ export interface ITechnicianProfile {
     location: string;
     is_available: boolean;
 }
+
+type Weekday = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+
+export interface IAvailability {
+    id: number;
+    technician_id: string;
+    weekday: Weekday;
+    start_time: string;
+    end_time: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface IAvailabilityPayload {
+    weekday: Weekday;
+    start_time: string | null;
+    end_time: string | null;
+}

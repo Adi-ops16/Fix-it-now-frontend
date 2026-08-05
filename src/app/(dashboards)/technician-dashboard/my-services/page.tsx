@@ -1,7 +1,7 @@
 import React from 'react'
-import { getMyServices } from '../_actions'
 import ServiceCard from '@/app/(public)/services/_components/ServiceCard'
 import { getTokenDetails } from '@/service/getToken'
+import { getMyServices } from '../_actions/serviceAction'
 
 export const dynamic = 'force-dynamic'
 

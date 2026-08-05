@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, LayoutGrid } from "lucide-react";
+import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, LayoutGrid, TimerIcon } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
@@ -41,8 +41,9 @@ export default function DashboardSidebar({ user, loading, refreshUser }: { user:
             return [
                 { title: "My Profile", href: "/technician-dashboard/my-profile", icon: UserRound },
                 { title: "My Services", href: "/technician-dashboard/my-services", icon: WrenchIcon },
-                { title: "create-service", href: "/technician-dashboard/create-service", icon: PenBoxIcon },
-                { title: "my-bookings", href: "/technician-dashboard/my-bookings", icon: LucidePaperclip }
+                { title: "Create Service", href: "/technician-dashboard/create-service", icon: PenBoxIcon },
+                { title: "My Bookings", href: "/technician-dashboard/my-bookings", icon: LucidePaperclip },
+                { title: "Create Schedule", href: "/technician-dashboard/create-availability", icon: TimerIcon },
             ]
         }
 

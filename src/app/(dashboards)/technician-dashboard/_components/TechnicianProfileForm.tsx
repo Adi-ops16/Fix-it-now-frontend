@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { TechnicianProfileFormProps, TechnicianUpdateResponse, UpdateTechnicianPayload } from '../_types'
-import { updateTechnician } from '../_actions'
+import { updateTechnician } from '../_actions/profileAction'
 
 export function TechnicianProfileForm({ user }: TechnicianProfileFormProps) {
     const router = useRouter()

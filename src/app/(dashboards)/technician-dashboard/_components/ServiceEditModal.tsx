@@ -11,8 +11,8 @@ import { IService, ServiceUpdateFormValues } from "@/app/(public)/services/_type
 import { Edit3 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { serviceUpdateSchema } from "../_schema";
-import { updateService } from "../_actions";
 import { toast } from "sonner";
+import { updateService } from "../_actions/serviceAction";
 
 interface ServiceEditModalProps {
     service: IService;

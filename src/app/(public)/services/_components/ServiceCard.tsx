@@ -9,10 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import ServiceDetailsButton from "./ServiceDetailsButton";
 import { IService } from "../_types/serviceTypes";
 import ServiceEditModal from "@/app/(dashboards)/technician-dashboard/_components/ServiceEditModal";
-import { Button } from "@/components/ui/button";
 import DeleteServiceModal from "@/app/(dashboards)/technician-dashboard/_components/DeleteServiceModal";
-import { deleteService } from "@/app/(dashboards)/technician-dashboard/_actions";
 import { toast } from "sonner";
+import { deleteService } from "@/app/(dashboards)/technician-dashboard/_actions/serviceAction";
 
 interface Props {
     service: IService;
