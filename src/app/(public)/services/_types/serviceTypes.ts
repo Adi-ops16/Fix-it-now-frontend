@@ -18,6 +18,13 @@ export interface IServiceQueryProps {
         sortOrder?: "asc" | "desc";
     }>;
 }
+export interface IServiceQueryParams {
+    page?: number;
+    limit?: number;
+    searchTerms?: string;
+    location?: string;
+    sortOrder?: "asc" | "desc";
+}
 
 export interface IServiceResponse extends Response {
     data: IService[];

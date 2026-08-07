@@ -16,16 +16,23 @@ export interface IBooking {
     cancellation_reason: string | null;
     created_at: Date;
     updated_at: Date;
+    service: {
+        title: string;
+        category: {
+            name: string
+        }
+    };
 }
 
-export interface IBookingWithService extends IBooking {
-    serviceTitle?: string;
-    categoryName?: string;
+export interface IBookingCancelPayload {
+    status: "CANCELLED";
+    booking_id: string;
+    cancellationReason: string;
 }
 
 export interface ICreateReviewPayload {
     rating: number;
-    message: string;
+    comment: string;
     booking_id: string
 }
 
@@ -40,4 +47,18 @@ export interface IReview {
     updated_at: Date;
     customer: Omit<IUser, "technician_profile">;
     technician: ITechnician
+}
+
+export interface IPayment {
+    id: string;
+    booking_id: string,
+    amount: number,
+    currency: string,
+    payment_status: string,
+    customer_id: string,
+    technician_id: string,
+    stripe_session_id: string,
+    stripe_intent_id: string,
+    created_at: Date,
+    updated_at: Date
 }

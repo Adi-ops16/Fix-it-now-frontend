@@ -17,18 +17,20 @@ const ReviewButton = ({ booking_id }: { booking_id: string }) => {
         event.preventDefault()
         setIsPending(true)
         const payload = {
-            rating: 5,
-            message: "The work is nicely done.",
+            rating: Number(event.target.rating.value),
+            comment: event.target.comment.value,
             booking_id
         }
         const result = await createReview(payload)
 
-        if (result.success) {
+        if (result?.success) {
             toast.success(result.message || "Result created successfully")
             setIsPending(false)
+            setOpen(false)
         } else {
-            toast.error(result.message || "Error creating review")
+            toast.error(result?.message || "Error creating review")
             setIsPending(false)
+            setOpen(false)
         }
     }
 
@@ -54,21 +56,22 @@ const ReviewButton = ({ booking_id }: { booking_id: string }) => {
 
                 <form onSubmit={(event) => handleReview(booking_id, event)} className="space-y-4 py-2">
                     <div className="space-y-2">
-                        <Label htmlFor="work_date">Rating</Label>
+                        <Label htmlFor="rating">Rating</Label>
                         <Input
                             id="rating"
                             type="number"
                             max={5}
                             min={1}
+                            step={"0.1"}
                             required
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="work_time">Booking time</Label>
+                        <Label htmlFor="comment">Comment</Label>
                         <Textarea
                             id='comment'
                             required
-                            minLength={20}
+                            minLength={10}
                             rows={3}
                         />
                     </div>
@@ -78,7 +81,7 @@ const ReviewButton = ({ booking_id }: { booking_id: string }) => {
                             Cancel
                         </Button>
                         <Button className={"cursor-pointer"} type="submit" disabled={isPending}>
-                            {isPending ? 'Booking...' : 'Confirm booking'}
+                            {isPending ? 'posting...' : 'Give Review'}
                         </Button>
                     </DialogFooter>
                 </form>

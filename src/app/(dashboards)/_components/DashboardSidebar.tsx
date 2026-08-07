@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, LayoutGrid, TimerIcon } from "lucide-react";
+import { UserRound, LogOut, LucideProps, WrenchIcon, PenBoxIcon, LucidePaperclip, Users, LayoutGrid, TimerIcon, Grid } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
@@ -31,6 +31,7 @@ export default function DashboardSidebar({ user, loading, refreshUser }: { user:
         if (user?.role === "ADMIN") {
             return [
                 { title: "My Profile", href: "/admin-dashboard/my-profile", icon: UserRound },
+                { title: "Overview", href: "/admin-dashboard/overview", icon: Grid },
                 { title: "Manage Users", href: "/admin-dashboard/manage-users", icon: Users },
                 { title: "Create Category", href: "/admin-dashboard/create-category", icon: PenBoxIcon },
                 { title: "Categories", href: "/admin-dashboard/all-categories", icon: LayoutGrid }
@@ -108,7 +109,10 @@ export default function DashboardSidebar({ user, loading, refreshUser }: { user:
                                     );
                                 }
 
-                                return <SidebarMenuItem key={item.title}>{itemButton}</SidebarMenuItem>;
+                                return <SidebarMenuItem
+                                    key={item.title}>
+                                    {itemButton}
+                                </SidebarMenuItem>;
                             })}
                     </SidebarMenu>
                 </SidebarGroup>

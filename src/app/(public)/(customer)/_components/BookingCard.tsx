@@ -6,13 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import BookingDetailsButton from "./BookingDetailsButton";
 import BookingStatusBadge from "./BookingStatusBadge";
-import { IBookingWithService } from "../_types";
 import { formatDate, formatDateTime } from "@/service/booking";
 import PaymentButton from "./PaymentButton";
 import ReviewButton from "./ReviewButton";
+import CustomerCancelButton from "./CustomerCancelButton";
+import { IBooking } from "../_types";
 
-export default function BookingCard({ booking }: { booking: IBookingWithService }) {
-    const { id, serviceTitle, categoryName, work_date, work_startTime, work_endTime, estimated_time, total_amount, booking_status } = booking;
+export default function BookingCard({ booking }: { booking: IBooking }) {
+    const { id, work_date, work_startTime, work_endTime, estimated_time, total_amount, booking_status, service } = booking;
 
     const { timeShape: startTime } = formatDateTime(work_startTime)
     const { timeShape: endTime } = formatDateTime(work_endTime)
@@ -29,19 +30,23 @@ export default function BookingCard({ booking }: { booking: IBookingWithService 
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-background/80 shadow-sm">
                             <Wrench className="size-5 text-primary" />
                         </div>
-                        <BookingStatusBadge status={booking_status} />
+                        <div className="flex items-center gap-1">
+                            <BookingStatusBadge status={booking_status} />
+                            {/* cancel button */}
+                            {!["IN_PROGRESS", "COMPLETED", "CANCELLED"].includes(booking_status) && <CustomerCancelButton bookingId={id} />}
+                        </div>
                     </div>
                 </div>
 
                 <CardContent className="flex flex-1 flex-col px-5 pt-4">
                     <div>
-                        {categoryName && (
+                        {service?.category.name && (
                             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                                {categoryName}
+                                {service?.category.name}
                             </p>
                         )}
                         <h2 className="line-clamp-1 text-lg font-semibold text-foreground">
-                            {serviceTitle ?? `Service #${booking.service_id}`}
+                            {service?.title ?? `Service #${service?.title}`}
                         </h2>
                     </div>
 

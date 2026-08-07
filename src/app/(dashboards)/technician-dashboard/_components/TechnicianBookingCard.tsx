@@ -51,7 +51,11 @@ export default function TechnicianBookingCard({ booking }: { booking: IBooking }
                 </div>
 
                 <CardContent className="flex flex-1 flex-col px-5 pt-4">
-                    <div className="space-y-3 text-sm">
+                    <div className="space-y-3 text-sm flex-1 flex flex-col justify-evenly">
+                        {booking.cancellation_reason && <div className="flex items-center gap-2 rounded-full bg-red-400/20 px-3 py-1.5">
+                            <span>Reason:   {booking.cancellation_reason}</span>
+                        </div>}
+
                         <div className="flex items-center gap-2 rounded-full bg-background/80 px-3 py-1.5">
                             <CalendarDays className="size-3.5" />
                             <span>{formatDate(booking.work_date)}</span>

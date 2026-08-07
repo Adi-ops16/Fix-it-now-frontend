@@ -14,7 +14,7 @@ export const getServices = async (params: serviceParams) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/services?${queryParams}`, {
             cache: "force-cache",
             next: {
-                revalidate: 60 * 60,
+                revalidate: 60 * 5,
                 tags: ["services"]
             }
         })

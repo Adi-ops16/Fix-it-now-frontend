@@ -3,7 +3,7 @@
 import { getTokenDetails } from "@/service/getToken"
 import { redirect } from "next/navigation"
 
-export const createPayment = async (bookingId: string) => {
+export const createPayment = async (booking_id: string) => {
     let redirectUrl = ""
 
     try {
@@ -15,7 +15,7 @@ export const createPayment = async (bookingId: string) => {
                 "Content-Type": "application/json",
                 Cookie: `accessToken=${token}`,
             },
-            body: JSON.stringify({ bookingId }),
+            body: JSON.stringify({ booking_id }),
             cache: "no-store",
         })
 

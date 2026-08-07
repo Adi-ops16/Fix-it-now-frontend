@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Menu, X, User, LogOut, CircleArrowOutUpRight, Settings, Wrench, Info, CalendarDays, Briefcase, LayoutDashboard, Users, Home } from 'lucide-react';
+import { Menu, X, User, LogOut, CircleArrowOutUpRight, Settings, Wrench, Info, CalendarDays, Briefcase, LayoutDashboard, Users, Home, Wallet } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Logo from './Logo';
 import { IUser } from '@/lib/types';
@@ -49,7 +49,8 @@ const Navbar = ({ user }: NavbarProps) => {
         if (user?.role === 'CUSTOMER') {
             items.push(
                 { label: 'My Bookings', href: '/bookings', icon: CalendarDays },
-                { label: 'My Profile', href: '/profile', icon: User }
+                { label: 'My Profile', href: '/profile', icon: User },
+                { label: 'My Payments', href: '/payment-history', icon: Wallet },
             );
         } else if (user?.role === 'TECHNICIAN') {
             items.push(

@@ -12,3 +12,21 @@ export interface ICategoryRes {
     data?: ICategory[];
     error?: any
 }
+
+export interface IOverview {
+    success: boolean,
+    message: string,
+    data: {
+        totalUsers: number,
+        workingTechnicians: number,
+        totalTechnicians: number,
+        nonWorkingTechnicians: number,
+        workRate: number,
+        totalBookings: number,
+        pendingBookings: number,
+        cancelledBooking: number,
+        cancellationRate: number,
+        totalRevenue: number,
+        averageRating: number
+    }
+}

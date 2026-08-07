@@ -1,43 +1,12 @@
 import Link from 'next/link'
 import { CalendarDays } from 'lucide-react'
-
 import { Button } from '@/components/ui/button'
 import { getMyBookings } from '../_actions/bookingActions'
-import { getServiceDetails } from '../../services/_actions/service'
 import BookingCard from '../_components/BookingCard'
-import { IBookingWithService } from '../_types'
-
-async function enrichBookingsWithService(bookings: IBookingWithService[]) {
-    const serviceIds = [...new Set(bookings.map((booking) => booking.service_id))]
-
-    const serviceResults = await Promise.all(
-        serviceIds.map(async (serviceId) => {
-            const result = await getServiceDetails(serviceId)
-            return { serviceId, service: result.data }
-        })
-    )
-
-    const serviceMap = new Map(
-        serviceResults.map(({ serviceId, service }) => [serviceId, service])
-    )
-
-    return bookings.map((booking) => {
-        const service = serviceMap.get(booking.service_id)
-        return {
-            ...booking,
-            serviceTitle: service?.title,
-            categoryName: service?.category?.name,
-        }
-    })
-}
 
 export default async function BookingsPage() {
     const result = await getMyBookings()
     const bookings = result?.data ?? []
-
-    const enrichedBookings = bookings.length
-        ? await enrichBookingsWithService(bookings)
-        : []
 
     return (
         <section className="container max-w-7xl mx-auto px-4 py-10">
@@ -48,9 +17,9 @@ export default async function BookingsPage() {
                 </p>
             </div>
 
-            {enrichedBookings.length > 0 ? (
+            {bookings.length > 0 ? (
                 <div className="mt-4 md:mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                    {enrichedBookings.map((booking) => (
+                    {bookings.map((booking) => (
                         <BookingCard key={booking.id} booking={booking} />
                     ))}
                 </div>

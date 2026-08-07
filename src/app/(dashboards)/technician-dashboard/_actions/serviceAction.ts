@@ -84,8 +84,11 @@ export const createService = async (payload: CreateServiceType) => {
             },
             body: JSON.stringify(payload)
         })
-        revalidateTag("my-services", { expire: 0 })
         const result = await res.json() as IServiceResponse
+        if (result.success) {
+            revalidateTag("my-services", { expire: 0 })
+            revalidateTag("services", { expire: 0 })
+        }
         return result
     } catch (error) {
         console.log("couldn't fetch service data", error)

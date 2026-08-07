@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-
 import { getReviewByBookingId } from "../_actions/reviewActions";
 
 const BookingReview = async ({ bookingId }: { bookingId: string }) => {

@@ -1,8 +1,7 @@
 'use server'
 import { getTokenDetails } from "@/service/getToken"
 import { revalidateTag } from "next/cache"
-import { IBooking } from "../_types";
-
+import { IBooking, IBookingCancelPayload } from "../_types";
 
 
 interface ICreateBookingPayload {
@@ -91,5 +90,27 @@ export const getBookingDetails = async (id: string) => {
             message: error.message,
             data: undefined
         }
+    }
+}
+
+export const cancelBooking = async (payload: IBookingCancelPayload) => {
+    const { token } = await getTokenDetails()
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bookings/status/cancel`, {
+            method: "PATCH",
+            headers: {
+                Cookie: `accessToken=${token}`,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const result = await res.json() as
+            { success: true, message: string, data?: { status: string } }
+        if (result.success) {
+            revalidateTag("my-bookings", { expire: 0 })
+        }
+        return result
+    } catch (err) {
+        console.log("Failed to cancel the booking", err)
     }
 }

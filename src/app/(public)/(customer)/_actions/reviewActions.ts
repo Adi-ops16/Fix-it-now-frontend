@@ -1,5 +1,7 @@
+'use server'
 import { getTokenDetails } from "@/service/getToken"
 import { ICreateReviewPayload, IReview } from "../_types"
+import { revalidateTag } from "next/cache"
 
 export const createReview = async (payload: ICreateReviewPayload) => {
     const { token } = await getTokenDetails()
@@ -12,7 +14,10 @@ export const createReview = async (payload: ICreateReviewPayload) => {
             },
             body: JSON.stringify(payload)
         })
-        const result: any = res.json()
+        const result = await res.json() as { success: boolean; message: string }
+        if (result.success) {
+            revalidateTag(`booking-${payload.booking_id}`, { expire: 0 })
+        }
         return result
     } catch (error) {
         console.log("error on creating service token", error)

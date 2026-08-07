@@ -42,7 +42,7 @@ export default function LoginForm() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/30 flex items-center justify-center">
+        <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/30 flex items-center justify-center mx-4">
             <div className="w-full max-w-md">
                 <AuthHeader
                     title="Welcome Back"

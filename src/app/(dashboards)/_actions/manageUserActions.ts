@@ -3,6 +3,7 @@
 import { IUser } from "@/lib/types";
 import { getTokenDetails } from "@/service/getToken";
 import { revalidateTag } from "next/cache";
+import { IOverview } from "../_types/categoryTypes";
 
 export const getAllUsers = async () => {
     const { token } = await getTokenDetails();
@@ -50,4 +51,21 @@ export async function toggleCustomerStatusAction(formData: FormData) {
         return { success: false, message: 'Missing userId' }
     }
     return await toggleCustomerStatus(userId, currentStatus)
+}
+
+export const getOverview = async () => {
+    const { token } = await getTokenDetails();
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/customers/overview`, {
+            headers: {
+                Cookie: `accessToken=${token}`,
+            },
+            cache: "force-cache",
+            next: { revalidate: 60 * 60, tags: ['users'] }
+        })
+        const result = await res.json() as IOverview
+        return result
+    } catch (err: any) {
+        console.error("Error fetching users:", err)
+    }
 }

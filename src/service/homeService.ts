@@ -52,7 +52,6 @@ export const getHomeTechnicians = async (limit = 5): Promise<ITechnician[]> => {
             next: { revalidate: 600 }
         });
         const result = await res.json() as ApiListResponse<ITechnician[]>;
-        console.log(result.data)
         return result.data.reverse() || [];
     } catch (error) {
         console.error("Error fetching technicians:", error);

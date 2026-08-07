@@ -9,9 +9,9 @@ import { DollarSign } from "lucide-react"
 export default function PaymentButton({ id }: { id: string }) {
     const [isPending, startTransition] = useTransition()
 
-    const handlePayment = () => {
+    const handlePayment = (bookingId: string) => {
         startTransition(async () => {
-            const res = await createPayment(id)
+            const res = await createPayment(bookingId)
             if (res && !res.success) {
                 toast.error(res.message)
             }
@@ -20,7 +20,7 @@ export default function PaymentButton({ id }: { id: string }) {
 
     return (
         <Button
-            onClick={handlePayment}
+            onClick={() => handlePayment(id)}
             disabled={isPending}
             variant="secondary"
             className="cursor-pointer flex-1"
